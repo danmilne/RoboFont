@@ -1,11 +1,10 @@
 Composites
 ==========
-
 Assorted Python scripts for working with composites
 
 AccentPreview
 -------------
-Automatically updates the Space Center to present glyphs which relate to the current glyph in the Glyph View window.
+Automatically updates the Space Center to display glyphs which relate to the current glyph in the Glyph View window.
 
 Build Selected Composites
 -------------------------

@@ -1,3 +1,8 @@
+""" 
+Creates a vertical guide named 'mid' at the the centre of the selected points. A selection must include two or more points. The midpoint is rounded to the nearest integer.
+
+"""
+
 glyph = CurrentGlyph()
 
 Selected_nodes_x = []
@@ -21,4 +26,4 @@ if len(Selected_nodes_x) > 1:
     glyph.addGuide((xMid, yMid), 90, name="mid")
 
 else:
-    print "Please select two or more nodes."
+    print "Please select two or more points."

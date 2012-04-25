@@ -15,4 +15,8 @@ for a in list:
 		combined_list.append(a)
 		combined_list.append(b)
 
-CurrentSpaceCenter().set(combined_list)
+SC = CurrentSpaceCenter()
+if SC is not None:
+    CurrentSpaceCenter().set(combined_list)
+else:
+    print "There is no space center window open."

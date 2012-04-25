@@ -142,7 +142,9 @@ class AccentPreview(BaseWindowController):
             if glyphName in AccentDict:
                 glyphList = AccentDict[glyphName]
                 glyphs = [font[glyphName].naked() for glyphName in glyphList if glyphName in font]
-                CurrentSpaceCenter().set(glyphList)
+                SC = CurrentSpaceCenter()
+                if SC is not None:
+                    CurrentSpaceCenter().set(glyphList)
                 
         self.w.glyphLineView.set(glyphs)
 

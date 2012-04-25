@@ -1,6 +1,6 @@
 COMPOSITES
 ==========
-Assorted Python scripts for working with composites
+Assorted Python scripts for working with composites. See scripts for more details.
 
 AccentPreview
 -------------

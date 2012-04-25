@@ -1,6 +1,6 @@
 GUIDES
 ==========
-Assorted Python scripts for working with guides
+Assorted Python scripts for working with guides. See scripts for more details.
 
 H MidGuide and V MidGuide
 -------------

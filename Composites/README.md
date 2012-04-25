@@ -1,4 +1,4 @@
-Composites
+COMPOSITES
 ==========
 Assorted Python scripts for working with composites
 

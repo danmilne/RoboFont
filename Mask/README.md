@@ -12,7 +12,7 @@ Interpolate Slider scripts
 -------------------------
 This slider controls interpolation between foreground and mask layers (see more detailed documentation in scripts).
 
-Before intrpolation, this script prepolates outlines in foreground and mask layers and attempts to diagnose any problems. If prepolation fails for matching outlines, try the Alt Interpolation slider, which uses another algorithm for selecting contour order and startpoints. If this also fails, you can order contours manually and use the slider without prepolation.
+Before interpolation, this script prepolates outlines in foreground and mask layers and attempts to diagnose any problems. If prepolation fails for matching outlines, try the Alt Interpolation slider, which uses another algorithm for selecting contour order and startpoints. If this also fails, you can order contours manually and use the slider without prepolation.
 
 Replace Recorded Sidebearings
 -------------------------

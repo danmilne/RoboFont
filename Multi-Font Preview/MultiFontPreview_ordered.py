@@ -1,7 +1,7 @@
 """
 A tweaked version of Frederik Berlaen's Multi-Font Preview script.
 
-This version orders the open fonts according to family, width, weight (in that order).
+This version orders the open fonts according to family, slope, width, weight (in that order).
 
 OpenType weight and width classes must be set in the font info for this to work!
 
@@ -19,6 +19,11 @@ allopen = AllFonts()
 unordered = []
 for i in range(len(allopen)):
     family = allopen[i].info.familyName
+    if allopen[i].info.italicAngle is not None:
+        slope = abs(allopen[i].info.italicAngle)
+    else:
+        slope = 0
+        
     weight = allopen[i].info.openTypeOS2WeightClass
     if weight == None:
         print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
@@ -31,11 +36,12 @@ for i in range(len(allopen)):
         print 'OpenType width class is not defined in ' + str(family) + '. Order may be incorrect.'
         print '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
             
-    unordered.append((i,family,width,weight))
+    unordered.append((i,family,slope,width,weight))
 
-ordered_weight = sorted(unordered, key=lambda tup: tup[3]) # reverse sort on weight
-ordered_width = sorted(ordered_weight, key=lambda tup: tup[2]) # reverse sort on width
-ordered_family = sorted(ordered_width, key=lambda tup: tup[1]) # reverse sort on weight
+ordered_weight = sorted(unordered, key=lambda tup: tup[4]) # reverse sort on weight
+ordered_width = sorted(ordered_weight, key=lambda tup: tup[3]) # reverse sort on width
+ordered_slope = sorted(ordered_width, key=lambda tup: tup[2]) # reverse sort on slope
+ordered_family = sorted(ordered_slope, key=lambda tup: tup[1]) # reverse sort on weight
 
 
 ordered_open = []

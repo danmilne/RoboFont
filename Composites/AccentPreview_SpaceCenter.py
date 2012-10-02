@@ -134,7 +134,11 @@ class AccentPreview(BaseWindowController):
 
     def glyphChanged(self, info):
         glyphs = []
-        glyph = info["glyph"]
+        # RoboFont v1.2:
+        # glyph = info["glyph"]
+        # RoboFont v1.3+:
+        glyph = CurrentGlyph()
+
         if glyph is None:
             glyphs = []
         else:

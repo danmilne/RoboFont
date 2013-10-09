@@ -1,5 +1,5 @@
 """
-This script builds selected ligatures from components as defined in dictionary below. Selected ligatures must already exist in font, so mark empty template glyphs with a colour before trying to build ligature.
+This script builds selected ligatures from components as defined in dictionary below.
 
 """
 
@@ -9,29 +9,87 @@ f = CurrentFont()
 
 LigDict = {
 
-"ae" : ["a","e"],
-"ij" : ["i","j"],
-"oe" : ["o","e"],
+#Manually composed foreign
+"AE" : ["A", "E"],
+"AE.sc" : ["A.sc", "E.sc"],
+"ae" : ["a", "e"],
+"Aringacute" : ["A", "ring.cap", "acute.cap"],
+"aringacute" : ["a", "ring", "acute"],
+"Oslash" : ["O"],
+"OE" : ["O", "E"],
+"OE.sc" : ["O.sc", "E.sc"],
+"germandbls" : ["f","s"],
+"Eth" : ["D"],
+"Thorn" : ["P"],
+"Dcroat" : ["D"],
+"Hbar" : ["H"],
+"IJ" : ["I", "J"],
+"IJ.sc" : ["I.sc", "J.sc"],
+"IJacute" : ["Iacute", "Jacute"],
+"Ldot" : ["L","L"],
+"Lslash" : ["L"],
+"Eng" : ["N"],
+"Tbar" : ["T"],
+"oslash" : ["o"],
+"oe" : ["o", "e"],
+"eth" : ["o", "parenright"],
+"thorn" : ["p", "b"],
+"dcroat" : ["d"],
+"hbar" : ["h"],
+"ij" : ["i", "j"],
+"ijacute" : ["iacute", "jacute"],
+"ldot" : ["l","l"],
+"lslash" : ["l"],
+"eng" : ["n"],
+"tbar" : ["t"],
+"germandbls.sc" : ["S.sc", "S.sc"],
 
+
+#Standard unicode
 "fi" : ["f","i"],
 "fl" : ["f","l"],
+"ff" : ["f","f"],
+"ffi" : ["f","f","i"],
+"ffl" : ["f","f","l"],
+
+#Standard extended
 "f_i" : ["f","i"],
 "f_l" : ["f","l"],
 "f_f" : ["f","f"],
+"f_f_i" : ["f","f","i"],
+"f_f_l" : ["f","f","l"],
 "f_b" : ["f","b"],
 "f_h" : ["f","h"],
 "f_j" : ["f","j"],
 "f_k" : ["f","k"],
-"f_f_i" : ["f","f","i"],
-"f_f_l" : ["f","f","l"],
 "f_f_b" : ["f","f","b"],
 "f_f_h" : ["f","f","h"],
 "f_f_j" : ["f","f","j"],
 "f_f_k" : ["f","f","k"],
-"d_d_g" : ["d","d","g"],
 
-"f.short" : ["f"],
-"f_f.short" : ["f","f.short"]
+#Misc
+"T_h" : ["T","h"],
+"t_t" : ["t","t"],
+"t_y" : ["t","y"],
+"t_t_y" : ["t","t","y"],
+"f_t" : ["f","t"],
+"s_t" : ["s","t"],
+"c_t" : ["c","t"],
+"g_f" : ["g", "f"],
+"r_y" : ["r", "y"],
+"DIONLEE" : ["D","I","O","N","space","L","E","E"],
+
+#Standard Fractions:
+'onehalf' : ['one.num','fraction','two.den'],
+'onequarter' : ['one.num','fraction','four.den'],
+'threequarters' : ['three.num','fraction','four.den'],
+'onethird' : ['one.num','fraction','three.den'],
+'twothirds' : ['two.num','fraction','three.den'],
+'oneeighth' : ['one.num','fraction','eight.den'],
+'threeeighths' : ['three.num','fraction','eight.den'],
+'fiveeighths' : ['five.num','fraction','eight.den'],
+'seveneighths' : ['seven.num','fraction','eight.den']
+
 
 }
 
@@ -64,11 +122,7 @@ def BuildLig(lig):
 
 ## Collect selected glyphs to avoid trying to build unwanted ligatures:
 
-SelectedGlyphs = []
-
-for g in f:
-    if g.selected == True:
-        SelectedGlyphs.append(g.name)
+SelectedGlyphs = f.selection + f.templateSelection
 
 ## Build selected ligatures:
 

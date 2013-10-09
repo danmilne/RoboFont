@@ -7,12 +7,11 @@ NOTE: To stop this script you must close the observer window.
 
 """
 
-
 import vanilla
 from defconAppKit.windows.baseWindow import BaseWindowController
 from defconAppKit.controls.glyphLineView import GlyphLineView
 from mojo import events
-from mojo.UI import *
+from mojo.UI import CurrentSpaceCenter
 
 font = CurrentFont()
 
@@ -44,7 +43,7 @@ AccentDict = {
 "d" : ["d", "dcaron", "caron.alt"],
 "e" : ["e", "egrave", "eacute", "ecircumflex", "ecaron", "edieresis", "emacron", "ebreve", "edotaccent", "eogonek", "ogonek", "grave", "acute", "circumflex", "caron", "dieresis", "macron", "breve", "dotaccent"],
 "g" : ["g", "gcircumflex", "gbreve", "gdotaccent", "gcommaaccent", "circumflex", "breve", "dotaccent", "commaaccent.alt"],
-"h" : ["h", "hcircumflex", "circumflex.uc"],
+"h" : ["h", "hcircumflex", "circumflex"],
 "i" : ["i", "dotlessi", "igrave", "iacute", "icircumflex", "itilde", "idieresis", "imacron", "ibreve", "idotaccent", "iogonek", "ogonek", "grave", "acute", "circumflex", "tilde", "dieresis", "macron", "breve", "dotaccent"],
 "dotlessi" : ["i", "dotlessi", "igrave", "iacute", "icircumflex", "itilde", "idieresis", "imacron", "ibreve", "idotaccent", "iogonek", "ogonek", "grave", "acute", "circumflex", "tilde", "dieresis", "macron", "breve", "dotaccent"],
 "j" : ["j", "dotlessj", "jcircumflex", "circumflex"],
@@ -74,7 +73,7 @@ AccentDict = {
 "L.sc" : ["L.sc", "Lacute.sc", "Lcaron.sc", "Lcommaaccent.sc", "Ldot.sc", "acute", "caron.alt", "dotaccent", "commaaccent"],
 "N.sc" : ["N.sc", "Nacute.sc", "Nacute.scpl", "Ncaron.sc", "Ntilde.sc", "Ncommaaccent.sc", "napostrophe.sc", "acute", "acute.pl", "caron", "tilde", "commaaccent", "quoteright"],
 "O.sc" : ["O.sc", "Ograve.sc", "Oacute.sc", "Oacute.scpl", "Ocircumflex.sc", "Otilde.sc", "Odieresis.sc", "Omacron.sc", "Obreve.sc", "Ohungarumlaut.sc", "grave", "acute", "acute.pl", "circumflex", "tilde", "dieresis", "macron", "breve", "hungarumlaut"],
-"Oslash.sc" : ["Oslashacute.sc"],
+"Oslash.sc" : ["Oslash.sc", "Oslashacute.sc", "acute"],
 "R.sc" : ["R.sc", "Racute.sc", "Rcaron.sc", "Rcommaaccent.sc", "acute", "caron", "commaaccent"],
 "S.sc" : ["S.sc", "Sacute.sc", "Sacute.scpl", "Scircumflex.sc", "Scaron.sc", "Scedilla.sc", "Scommaaccent.sc", "cedilla", "acute", "acute.pl", "circumflex", "caron", "commaaccent"],
 "T.sc" : ["T.sc", "Tcaron.sc", "Tcommaaccent.sc", "caron", "commaaccent"],
@@ -97,8 +96,8 @@ AccentDict = {
 "ring.uc" : ["ring.uc", "Aring", "Aringacute", "Uring", "acute.uc", "A", "U"],
 "hungarumlaut.uc" : ["hungarumlaut.uc", "Ohungarumlaut", "Uhungarumlaut", "O", "U"],
 "dotaccent.uc" : ["dotaccent.uc", "Cdotaccent", "Edotaccent", "Gdotaccent", "Idotaccent", "Ldot", "Zdotaccent", "C", "E", "G", "I", "L", "Z"],
-"commaaccent.uc" : ["commaaccent.uc", "Gcommaaccent", "Kcommaaccent", "Lcommaaccent", "Ncommaaccent", "Rcommaaccent", "Scommaaccent", "Tcommaaccent", "G", "K", "L", "N", "R", "S", "T"],
-"cedilla" : ["cedilla", "ccedilla", "scedilla", "Ccedilla.sc", "Scedilla.sc", "C", "s", "C.sc", "S.sc"],
+"commaaccent.uc" : ["commaaccent.uc", "Gcommaaccent", "Kcommaaccent", "Lcommaaccent", "Ncommaaccent", "Rcommaaccent", "Scommaaccent", "Tcommaaccent", "uni021A", "G", "K", "L", "N", "R", "S", "T"],
+"cedilla" : ["cedilla", "ccedilla", "scedilla", "Ccedilla.sc", "Scedilla.sc", "c", "s", "C.sc", "S.sc"],
 "ogonek" : ["ogonek", "aogonek", "eogonek", "iogonek", "uogonek", "Aogonek.sc", "Eogonek.sc", "Iogonek.sc", "Uogonek.sc", "a", "e", "i", "dotlessi", "u", "A.sc", "E.sc", "I.sc", "U.sc"],
 "grave" : ["grave", "agrave", "egrave", "igrave", "ograve", "ugrave", "wgrave", "ygrave", "Agrave.sc", "Egrave.sc", "Igrave.sc", "Ograve.sc", "Ugrave.sc", "Wgrave.sc", "Ygrave.sc", "a", "e", "i", "dotlessi", "o", "u", "w", "y", "A.sc", "E.sc", "I.sc", "O.sc", "U.sc", "W.sc", "Y.sc"],
 "acute" : ["acute", "aacute", "aringacute", "aeacute", "cacute", "eacute", "iacute", "lacute", "nacute", "oacute", "oslashacute", "racute", "sacute", "uacute", "wacute", "yacute", "zacute", "Aacute.sc", "Aringacute.sc", "AEacute.sc", "Cacute.sc", "Eacute.sc", "Iacute.sc", "Lacute.sc", "Nacute.sc", "Oacute.sc", "Oslashacute.sc", "Racute.sc", "Sacute.sc", "Uacute.sc", "Wacute.sc", "Yacute.sc", "Zacute.sc", "ring", "a", "c", "e", "i", "dotlessi", "l", "n", "o", "oslash", "r", "s", "u", "w", "y", "z", "A.sc", "C.sc", "E.sc", "I.sc", "L.sc", "N.sc", "O.sc", "Oslash.sc", "R.sc", "S.sc", "U.sc", "W.sc", "Y.sc", "Z.sc"],
@@ -113,7 +112,7 @@ AccentDict = {
 "ring" : ["ring", "aring", "aringacute", "uring", "Aring.sc", "Aringacute.sc", "Uring.sc", "ring", "a", "u", "A.sc", "U.sc"],
 "hungarumlaut" : ["hungarumlaut", "ohungarumlaut", "uhungarumlaut", "Ohungarumlaut.sc", "Uhungarumlaut.sc", "o", "u", "O.sc", "U.sc"],
 "dotaccent" : ["dotaccent", "cdotaccent", "edotaccent", "gdotaccent", "idotaccent", "ldot", "zdotaccent", "Cdotaccent.sc", "Edotaccent.sc", "Gdotaccent.sc", "Idotaccent.sc", "Ldot.sc", "Zdotaccent.sc", "c", "e", "g", "i", "dotlessi", "l", "z", "C.sc", "E.sc", "G.sc", "I.sc", "L.sc", "Z.sc"],
-"commaaccent" : ["commaaccent", "kcommaaccent", "lcommaaccent", "ncommaaccent", "rcommaaccent", "scommaaccent", "tcommaaccent", "Gcommaaccent.sc", "Kcommaaccent.sc", "Lcommaaccent.sc", "Ncommaaccent.sc", "Rcommaaccent.sc", "Scommaaccent.sc", "Tcommaaccent.sc", "k", "l", "n", "r", "s", "t", "G.sc", "K.sc", "L.sc", "N.sc", "R.sc", "S.sc", "T.sc"],
+"commaaccent" : ["commaaccent", "kcommaaccent", "lcommaaccent", "ncommaaccent", "rcommaaccent", "scommaaccent", "tcommaaccent", "uni021B", "Gcommaaccent.sc", "Kcommaaccent.sc", "Lcommaaccent.sc", "Ncommaaccent.sc", "Rcommaaccent.sc", "Scommaaccent.sc", "Tcommaaccent.sc", "uni021A.sc", "k", "l", "n", "r", "s", "t", "G.sc", "K.sc", "L.sc", "N.sc", "R.sc", "S.sc", "T.sc"],
 "commaaccent.alt" : ["commaaccent.alt", "gcommaaccent", "g"],
 "quoteright" : ["quoteright", "napostrophe", "napostrophe.sc", "n", "N.sc"]
 }
@@ -134,9 +133,6 @@ class AccentPreview(BaseWindowController):
 
     def glyphChanged(self, info):
         glyphs = []
-        # RoboFont v1.2:
-        # glyph = info["glyph"]
-        # RoboFont v1.3+:
         glyph = CurrentGlyph()
 
         if glyph is None:

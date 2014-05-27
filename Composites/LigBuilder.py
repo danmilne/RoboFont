@@ -77,7 +77,6 @@ LigDict = {
 "c_t" : ["c","t"],
 "g_f" : ["g", "f"],
 "r_y" : ["r", "y"],
-"DIONLEE" : ["D","I","O","N","space","L","E","E"],
 
 #Standard Fractions:
 'onehalf' : ['one.num','fraction','two.den'],
@@ -122,14 +121,27 @@ def BuildLig(lig):
 
 ## Collect selected glyphs to avoid trying to build unwanted ligatures:
 
-SelectedGlyphs = f.selection + f.templateSelection
+SelectedGlyphs = f.templateSelection
 
 ## Build selected ligatures:
 
-for lig in LigDict:
-    if lig in SelectedGlyphs:
-        BuildLig(lig)
-        
-        
+ExtraLigDict = {}
 
+for lig in SelectedGlyphs:
+    if lig in LigDict:
+        BuildLig(lig)
+    else:
+        lig_glyphs = lig.split('_')
         
+        f.newGlyph(lig)
+        c_advance = 0
+        advanceList = []
+        for comp in lig_glyphs:
+            f[lig].appendComponent(comp,(c_advance,0))
+            c_width = f[comp].width
+            advanceList.append(c_width)
+            c_advance = sum(advanceList)
+    
+        f[lig].width = c_advance
+        f[lig].mark = markcolour
+        f.update()        
